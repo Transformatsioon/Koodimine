@@ -1,6 +1,8 @@
 import { chromium, Browser, Page, BrowserContext } from 'playwright';
+// @ts-ignore - no type definitions available
 import UserAgent from 'user-agents';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
+// @ts-ignore - no type definitions available
 import robotsParser from 'robots-parser';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
@@ -100,21 +102,27 @@ export class WebCrawler {
       }
 
       // Anti-detection: Remove webdriver flag
+      // Note: This script runs in the browser context, not Node.js
       await this.context.addInitScript(() => {
+        // @ts-ignore - browser context globals
         Object.defineProperty(navigator, 'webdriver', {
           get: () => false,
         });
 
         // Add chrome object
-        (window as any).chrome = {
+        // @ts-ignore - browser context globals
+        window.chrome = {
           runtime: {},
         };
 
         // Mock permissions
+        // @ts-ignore - browser context globals
         const originalQuery = window.navigator.permissions.query;
+        // @ts-ignore - browser context globals
         window.navigator.permissions.query = (parameters: any) =>
           parameters.name === 'notifications'
-            ? Promise.resolve({ state: Notification.permission } as PermissionStatus)
+            // @ts-ignore - browser context globals
+            ? Promise.resolve({ state: Notification.permission })
             : originalQuery(parameters);
       });
 
@@ -168,6 +176,7 @@ export class WebCrawler {
     try {
       // Random scroll
       await page.evaluate(() => {
+        // @ts-ignore - browser context globals
         window.scrollBy(0, Math.floor(Math.random() * 300));
       });
 
