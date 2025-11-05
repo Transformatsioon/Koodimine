@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  web-crawler-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web-crawler-api
+    ports:
+      - "3000:3000"
+    environment:
+      - LOG_LEVEL=info
+      - PORT=3000
+      - HEADLESS=true
+      - BROWSER_TIMEOUT=30000
+      - RATE_LIMIT_POINTS=10
+      - RATE_LIMIT_DURATION=10
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: n8n integration
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=changeme
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://localhost:5678/
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./nodes:/home/node/.n8n/custom:ro
+    restart: unless-stopped
+    depends_on:
+      - web-crawler-api
+
+volumes:
+  n8n_data:
+    driver: local

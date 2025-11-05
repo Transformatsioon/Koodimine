@@ -1,0 +1,17 @@
+{
+  "node": "n8n-nodes-base.webCrawler",
+  "nodeVersion": "1.0",
+  "codex": {
+    "categories": ["Data & Storage"],
+    "subcategories": {
+      "Data & Storage": ["Data Processing"]
+    },
+    "resources": {
+      "primaryDocumentation": [
+        {
+          "url": "https://github.com/yourusername/n8n-web-crawler"
+        }
+      ]
+    }
+  }
+}
