@@ -421,7 +421,7 @@ export class WebCrawlerNode implements INodeType {
           if (this.continueOnFail()) {
             returnData.push({
               json: {
-                error: error.message,
+                error: (error as Error).message || String(error),
               },
               pairedItem: { item: i },
             });
