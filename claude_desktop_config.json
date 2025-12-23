@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "n8n": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-n8n"
+      ],
+      "env": {
+        "N8N_URL": "https://n8n.transformatsioon.ee",
+        "N8N_API_KEY": "YOUR_API_KEY_HERE"
+      }
+    }
+  }
+}
