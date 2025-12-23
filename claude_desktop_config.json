@@ -4,10 +4,13 @@
       "command": "npx",
       "args": [
         "-y",
-        "@modelcontextprotocol/server-n8n"
+        "n8n-mcp"
       ],
       "env": {
-        "N8N_URL": "https://n8n.transformatsioon.ee",
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true",
+        "N8N_API_URL": "https://n8n.transformatsioon.ee",
         "N8N_API_KEY": "YOUR_API_KEY_HERE"
       }
     }
