@@ -13,6 +13,16 @@
         "N8N_API_URL": "https://n8n.transformatsioon.ee",
         "N8N_API_KEY": "YOUR_API_KEY_HERE"
       }
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-b1aab415279b419185770f5bf552e1c4"
+      }
     }
   }
 }
