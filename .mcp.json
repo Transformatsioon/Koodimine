@@ -3,6 +3,13 @@
     "n8n-docs": {
       "type": "http",
       "url": "https://n8n.mcp.kapa.ai/"
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7sk-c2198bb5-88d8-4f8a-8868-b658e64a5e5f"
+      }
     }
   }
 }
